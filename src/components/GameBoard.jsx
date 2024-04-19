@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Square from './Square'
 
 const GameBoard = () => {
+    const [boardFields, setBoardFields] = useState(Array(9).fill(""));
+    const [turn,setTurn] = useState('O');
 
-    //have the usestate here so that the child has one state, and remove from other
+    const switchTurn = (index) => {
+        console.log("clicked");
+        const copyBoardFields = [...boardFields];
+        copyBoardFields[index] = turn;
+        setBoardFields(copyBoardFields);
+        setTurn((turn==='O')?'X':'O');
+        console.log("board: "+boardFields);
+    }
+
+    //use useEffect to check the winner
+
     return (
         <>
             {
-                Array.from({length: 9}).fill("").map((current, index) =>{
-                    //we can use set state for changing the variable and the use effect to set that value in array
-                    return <Square key={index} value={current} indexValue={index}/>
+                boardFields.map((current, index) => {
+                    return <Square key={index} value={current} turn={turn} indexValue={index} switch={(index) => switchTurn(index)}/>
                 })
             }
         </>
