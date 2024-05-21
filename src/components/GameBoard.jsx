@@ -6,6 +6,9 @@ const GameBoard = () => {
     const [turn,setTurn] = useState('O');
 
     const switchTurn = (index) => {
+        if(boardFields[index]!==""){
+            return;
+        }
         console.log("clicked");
         const copyBoardFields = [...boardFields];
         copyBoardFields[index] = turn;
